@@ -3,6 +3,16 @@
 {% block title %}CollegeHub|Resources{% endblock title %}
 {% block resourceactive %} active {% endblock resourceactive %}
 
+{% load static %}
+
 {% block body %}
-resources
+
+{% comment %} 
+<div class="container">
+
+    <embed src='media/{{pdf_document.pdf_file}}' width="100%" height="600px" type="application/pdf">
+</div> 
+{% endcomment %}
+
+resources page!
 {% endblock body %}

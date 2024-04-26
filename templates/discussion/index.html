@@ -4,5 +4,17 @@
 {% block discussionactive %} active {% endblock discussionactive %}
 
 {% block body %}
-Discussion Page....!!
+
+{% for item in alldiscussions %}
+<div class="container">
+<h3>
+    {{item.title}}
+</h3>
+<p>
+    {{item.content}}
+</p>
+
+</div>
+
+{% endfor %}
 {% endblock body %}

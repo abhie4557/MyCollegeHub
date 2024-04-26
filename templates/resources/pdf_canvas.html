@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}CollegeHub|canvas{% endblock title %}
+{% block resourceactive %} active {% endblock resourceactive %}
+
+{% load static %}
+
+{% block body %}
+
+<canvas id="pdfCanvas" width="800" height="600"></canvas>
+{% endblock body %}
+
+{% block js %}
+<script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+    <script>
+        const pdfPath = "{{ pdf_path }}";
+        const canvas = document.getElementById('pdfCanvas');
+        const context = canvas.getContext('2d');
+
+        pdfjsLib.getDocument(pdfPath).promise.then(pdf => {
+            pdf.getPage(1).then(page => {
+                const viewport = page.getViewport({ scale: 1 });
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+
+                const renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+                page.render(renderContext);
+            });
+        });
+    </script>
+{% endblock js %}

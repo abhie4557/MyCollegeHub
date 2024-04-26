@@ -3,31 +3,38 @@ from discussion.models import Discussion, DiscussionComment
 from django.contrib import messages
 from django.contrib.auth.models import User
 from discussion.templatetags import extras
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request): 
-    # alldiscussions= discussion.objects.all()
+    alldiscussions= Discussion.objects.all()
     # context={'alldiscussions': alldiscussions}
-    # return render(request, "blog/index.html", context)
-    return render(request, "discussion/index.html")
+    # print(context)
+    return render(request, "discussion/index.html", {'alldiscussions': alldiscussions})
 
+
+@login_required
 def discussion(request, slug): 
-    Discussion=Discussion.objects.filter(slug=slug).first()
-    Discussion.views= Discussion.views +1
-    Discussion.save()
+    print(slug)
+    discussion=Discussion.objects.filter(slug=slug).first()
+    print(discussion)
+    # discussion.views= Discussion.views +1
+    discussion.save()
     
-    comments= DiscussionComment.objects.filter(Discussion=Discussion, parent=None)
-    replies= DiscussionComment.objects.filter(Discussion=Discussion).exclude(parent=None)
-    replyDict={}
-    for reply in replies:
-        if reply.parent.sno not in replyDict.keys():
-            replyDict[reply.parent.sno]=[reply]
-        else:
-            replyDict[reply.parent.sno].append(reply)
+    # comments= DiscussionComment.objects.filter(Discussion=discussion, parent=None)
+    # replies= DiscussionComment.objects.filter(Discussion=discussion).exclude(parent=None)
+    # replyDict={}
+    # for reply in replies:
+    #     if reply.parent.sno not in replyDict.keys():
+    #         replyDict[reply.parent.sno]=[reply]
+    #     else:
+    #         replyDict[reply.parent.sno].append(reply)
 
-    context={'Discussion':Discussion, 'comments': comments, 'user': request.user, 'replyDict': replyDict}
-    return render(request, "discussion/discussion.html", context)
+    # context={'Discussion':discussion, 'comments': comments, 'user': request.user, 'replyDict': replyDict}
+    return render(request, "discussion/threads.html")
 
+
+@login_required
 def DiscussionComment(request):
     if request.method == "POST":
         comment=request.POST.get('comment')
