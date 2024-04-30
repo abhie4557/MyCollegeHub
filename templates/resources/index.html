@@ -7,12 +7,11 @@
 
 {% block body %}
 
-{% comment %} 
-<div class="container">
+<div class="container my-4">
 
-    <embed src='media/{{pdf_document.pdf_file}}' width="100%" height="600px" type="application/pdf">
-</div> 
-{% endcomment %}
+    <a class="btn btn-primary" href="/resources/pdf/notes/" role="button">Notes</a>
+    <a class="btn btn-primary" href="/pdf/papers" role="button">Previous Year Papers</a>
+    <a class="btn btn-primary" href="/pdf/assignments" role="button">Assignments</a>
+</div>
 
-resources page!
 {% endblock body %}

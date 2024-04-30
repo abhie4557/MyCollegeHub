@@ -1,1 +1,4 @@
 django==5.0.4
+pymongo==4.7.0
+dnspython==2.6.1   #automatically installed with pymongo
+python-dotenv==1.0.1

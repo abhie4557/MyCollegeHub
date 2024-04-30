@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}CollegeHub|pdfview{% endblock title %}
+{% block resourceactive %} active {% endblock resourceactive %}
+
+{% load static %}
+
+{% block body %}
+<!-- HTML container for PDF rendering -->
+<div id="pdfContainer"></div>
+{% endblock body %}
+
+{% block js %}
+
+
+<!-- Add PDF.js library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.min.js"></script>
+
+
+<!-- JavaScript code to load and render PDF -->
+<script>
+    // URL to your PDF file
+    const pdfUrl = "{% url 'pdf_view3' pdf_id=pdf_document.id %}";  // Replace 'pdf_view' with your Django view name
+
+    // PDF.js code to render the PDF
+    pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
+        // PDF.js rendering options
+        const options = {
+            scale: 1.5,
+            canvas: document.createElement('canvas'),
+            context: document.createElement('canvas').getContext('2d'),
+            viewport: null
+        };
+
+        // Get the first page of the PDF
+        pdf.getPage(1).then(page => {
+            options.viewport = page.getViewport({ scale: options.scale });
+
+            // Set canvas dimensions
+            options.canvas.width = options.viewport.width;
+            options.canvas.height = options.viewport.height;
+
+            // Render the PDF page on the canvas
+            page.render(options).promise.then(() => {
+                // Append the canvas to the PDF container
+                document.getElementById('pdfContainer').appendChild(options.canvas);
+            });
+        });
+    });
+</script>
+
+{% endblock js %}
+

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig', 
     'discussion.apps.DiscussionConfig', 
     'resources.apps.ResourcesConfig', 
+    'chat.apps.ChatConfig', 
 ]
 
 MIDDLEWARE = [
@@ -123,7 +124,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,  "static"),
+    os.path.join(BASE_DIR,  'static'),
 ]
 
 MESSAGE_TAGS = {
