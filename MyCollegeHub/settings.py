@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'discussion.apps.DiscussionConfig', 
     'resources.apps.ResourcesConfig', 
     'chat.apps.ChatConfig', 
+    'person',
+    'djongo',
 ]
 
 MIDDLEWARE = [
@@ -79,10 +81,16 @@ WSGI_APPLICATION = 'MyCollegeHub.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# MongoDB connection settings
+MONGO_URI = 'mongodb://localhost:27017/'  # Replace this with your MongoDB URI
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': 'MyCollegeHubDb',  # Replace this with your database name
+        'CLIENT': {
+            'host': MONGO_URI,
+        }
     }
 }
 
