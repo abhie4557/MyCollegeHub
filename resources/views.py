@@ -1,12 +1,40 @@
 from django.shortcuts import render
-from .models import PDFDocument
-from .models import PDFNotes
-
-from django.http import FileResponse, Http404, HttpResponse
+from .models import PDFDocument, Paper, PDFNote
+from .models import resources_pdfnote, resources_paper
+from django.http import FileResponse, Http404, HttpResponse,JsonResponse
 from django.core.files.storage import FileSystemStorage
-
 from django.conf import settings
 import os
+from bson import ObjectId  # Import ObjectId from bson package
+
+def convert_to_json(obj):
+    if isinstance(obj, ObjectId):
+        return str(obj)  # Convert ObjectId to string
+    elif isinstance(obj, dict):
+        return {key: convert_to_json(value) for key, value in obj.items()}  # Recursively convert nested dicts
+    elif isinstance(obj, list):
+        return [convert_to_json(item) for item in obj]  # Recursively convert lists
+    return obj  # For other types, return as-is
+
+
+def filtered_data(request):
+    course= request.GET.get('course')
+    year = request.GET.get('year')
+
+    filter_query = {}
+    if course:
+        filter_query['course'] = course
+    if year:
+        filter_query['year'] = int(year)
+
+    filtered_documents = list(resources_paper.find(filter_query))
+    # Convert MongoDB documents to Python dictionaries
+    python_documents = [doc for doc in filtered_documents]
+    # Convert Python dictionaries to JSON-compatible format
+    json_documents = convert_to_json(python_documents)
+    
+    return JsonResponse(json_documents, safe=False)
+
 
 def url(request):
     pdf_id = 1  # Example: Set your dynamic PDF ID here
@@ -15,29 +43,31 @@ def url(request):
 
 
 # Create your views here.
-
+def getalldocs(request):
+    docs = resources_pdfnote.find({'course':'BCA'},{'pdf_file':1, '_id':0})
+    print(type(docs))
+    return HttpResponse(docs)
    
 def findpdf(request, pdf_cat):
     pdf_id={}
 
     if pdf_cat=='notes':
-        pdf_notes_ids = list(PDFNotes.objects.values_list('Notes_id', flat=True))
+        pdf_notes_ids = list(PDFNote.objects.values_list('id', flat=True))
     elif pdf_cat=='papers': 
-        # papers_ids = list(Papers.objects.values_list('pdf_id', flat=True))
+        papers_ids = list(Paper.objects.values_list('id', flat=True))
         pass
     elif pdf_cat=='assignments':
         # assignment_ids = list(Assignment.objects.values_list('pdf_id', flat=True))
         pass
-    all_pdf_ids=pdf_notes_ids
-    print(all_pdf_ids)
+    pdf_id=papers_ids
+    print(pdf_id)
     # all_pdf_ids = pdf_notes_ids + papers_ids + assignment_ids
-    context = {'all_pdf_ids': all_pdf_ids}
+    context = {'pdf_id': pdf_id}
     return render(request, 'resources/pdf_view.html', context)
 
 
 def index(request):
-    pdf_file_path = os.path.join(settings.MEDIA_URL, 'invoice.pdf')
-    return render(request, 'resources/index.html', {'pdf_file_path': pdf_file_path})
+    return render(request, 'resources/filters.html')
 
 
 # def pdf_canvas_view(request, pdf_filename):

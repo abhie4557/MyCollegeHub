@@ -1,0 +1,55 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Filter Data</title>
+</head>
+<body>
+    <select id="courseSelect">
+        <option value="BCA">BCA</option>
+        <option value="BBA">BBA</option>
+        <option value="HM">HM</option>
+        <!-- Add more options as needed -->
+    </select>
+    <input type="text" id="yearInput" placeholder="Enter Year">
+    <button onclick="applyFilters()">Apply Filters</button>
+
+    <div id="filteredData">
+        {% for item in filtered_data %}
+        <a href="{{ item.link }}">{{ item.title }}</a><br>
+        {% endfor %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function applyFilters() {
+            var course = $('#courseSelect').val();
+            var year = $('#yearInput').val();
+
+            $.ajax({
+                url: '/resources/filter/',
+                type: 'GET',
+                data: { course: course, year: year },
+                success: function(response) {
+                    displayFilteredData(response);  // Call function to display filtered data
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
+        function displayFilteredData(data) {
+            var filteredDataDiv = $('#filteredData');
+            filteredDataDiv.empty();  // Clear existing data
+    
+            data.forEach(function(item) {
+                // Create anchor tag for each item in data
+                var anchor = $('<a>').attr('href', item.paper_file).text(item.subject);
+                filteredDataDiv.append(anchor);  // Append anchor tag to filteredDataDiv
+                filteredDataDiv.append('<br>');  // Add line break after each anchor tag
+            });
+        }
+    
+    </script>
+</body>
+</html>

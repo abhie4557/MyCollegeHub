@@ -3,6 +3,8 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name="resouceshome"),
+    path('filter/', views.filtered_data, name="filterData"),
+    path('getdocs/', views.getalldocs, name="getdocs"),
     path('pdf/<str:pdf_cat>/', views.findpdf, name="pdf_cat"),
     path('pdf_view', views.findpdf, name="url"),
 

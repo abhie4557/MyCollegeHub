@@ -1,10 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import now
+import uuid
 
 
 class Discussion(models.Model):
-    sno = models.AutoField(primary_key=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=255)
     created_by = models.CharField(max_length=14)
     slug=models.CharField(max_length=130)
@@ -16,7 +17,7 @@ class Discussion(models.Model):
         return self.title + " by " + self.created_by
 
 class DiscussionComment(models.Model):
-    sno= models.AutoField(primary_key=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     comment=models.TextField()
     user=models.ForeignKey(User, on_delete=models.CASCADE)
     Discussion=models.ForeignKey(Discussion, on_delete=models.CASCADE)
