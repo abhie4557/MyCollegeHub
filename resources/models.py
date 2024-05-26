@@ -27,6 +27,7 @@ class Paper(models.Model):
     # Subject and course fields for categorizing notes
     subject = models.CharField(max_length=100)
     course = models.CharField(max_length=100)
+    semester = models.CharField(max_length=100)
     
     paper_file = models.FileField(upload_to=get_upload_path)  # Use the custom upload path function
     
@@ -38,6 +39,7 @@ class PDFNote(models.Model):
     # Subject and course fields for categorizing notes
     subject = models.CharField(max_length=100)
     course = models.CharField(max_length=100)
+    semester = models.CharField(max_length=100)
 
     # File field to store the PDF notes
     pdf_file = models.FileField(upload_to='PDFNotes/')

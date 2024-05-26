@@ -6,12 +6,24 @@
 {% load static %}
 
 {% block body %}
-
-<div class="container my-4">
-
-    <a class="btn btn-primary" href="/resources/pdf/notes/" role="button">Notes</a>
-    <a class="btn btn-primary" href="/pdf/papers" role="button">Previous Year Papers</a>
-    <a class="btn btn-primary" href="/pdf/assignments" role="button">Assignments</a>
+<div class="images">
+    <a href="#"><img src="{% static 'thumb.jpg' %}" alt=""></a>
+    <a href="#"> <img src="{% static 'thumb.jpg' %}" alt=""></a>
+    <a href="/resources/filterpage"> <img src="{% static 'thumb.jpg' %}" alt=""></a><br>
+    <a href="#"> <img src="{% static 'thumb.jpg' %}" alt=""></a>
+    <a href="#"> <img src="{% static 'thumb.jpg' %}" alt=""></a>
+    <a href="#"> <img src="{% static 'thumb.jpg' %}" alt=""></a>
+</div> 
+<div >
+    <a href="/resources/pdf/notes/" role="button">Notes</a>
+    <br>
+    <br>
+    <a href="/pdf/papers" role="button">Previous Year Papers</a>
+    <br>
+    <br>
+    <a href="/pdf/assignments" role="button">Assignments</a>
+    <br>
+    <br>
+    <a href="/resources/filterpage" role="button">Filters</a>
 </div>
-
 {% endblock body %}

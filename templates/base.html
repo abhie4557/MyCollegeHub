@@ -1,200 +1,229 @@
-<!doctype html>
+{% load static %}
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>{% block title %} {% endblock title %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   
 
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
-  <title>{% block title %} {% endblock title %}</title>
+    <link rel="stylesheet" href="{%static 'css/main.css' %}">
+    <link rel="stylesheet" href="{%static 'css/header.css' %}">
+    <link rel="stylesheet" href="{%static 'css/footer.css' %}">
 </head>
 
 <body>
+    <header>
+        <!-- header file -->
+        <h3>My Clg Hub</h3>
+    </header>
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">CollegeHub</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <nav role="main">
+        <div class="logo">
+            <a href="/"><img src="{% static 'thumb.jpg' %}" alt="Logo"></a>
+        </div>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item {% block homeactive %}  {% endblock homeactive %}">
-          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item {% block discussionactive %}  {% endblock discussionactive %} ">
-          <a class="nav-link" href="/discussion">Discussion</a>
-        </li>
-        <li class="nav-item {% block resourceactive %}  {% endblock resourceactive %} ">
-          <a class="nav-link" href="/resources">Resources</a>
-        </li>
-        <li class="nav-item {% block aboutactive %}  {% endblock aboutactive %}">
-          <a class="nav-link" href="/about">About</a>
-        </li>
-        <li class="nav-item {% block contactactive %}  {% endblock contactactive %} ">
-          <a class="nav-link" href="/contact">Contact</a>
-        </li>
+        <div >
+            <form method="get" action="/search" >
+                <input type="search" placeholder="Search" aria-label="Search" name="query"
+                  >
+                <button type="submit">Search</button>
+              </form>
+        </div>
 
+        <div class="login">
+            <a href="#">Login</a>
 
-      </ul>
-      <div class="ml-auto form-inline ">
-        <form method="get" action="/search" class="my-2 my-lg-0 mx-3">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="query"
-            id="query">
-          <button class="btn btn-primary my-2 my-sm-0 " type="submit">Search</button>
-         
-        </form>
+        </div>
 
-      </div>
     </nav>
-{% comment %}         
-        {% if user.is_authenticated %}
-        <ul class="navbar-nav mr-2">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-              Welcome {{request.user}}</a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/logout">Logout</a>
 
-            </div>
-          </li>
-        </ul>
-      </div>
-      {% else %}
-      <!-- Button to  trigger Login modal -->
-      <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#loginModal">
-        Login
-      </button>
-
-      <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#signupModal">
-        SignUp
-      </button>
-      {% endif %} {% endcomment %}
-
-
-
-  {% comment %}
-
-
-  {% for message in messages %}
-  <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-    <strong>Message : </strong> {{ message }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <nav role="sub">
+        <ul >
+            <li class="{% block homeactive %}  {% endblock homeactive %}">
+              <a  href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="{% block discussionactive %}  {% endblock discussionactive %} ">
+              <a  href="/discussion">Discussion</a>
+            </li>
+            <li class=" {% block resourceactive %}  {% endblock resourceactive %} ">
+              <a  href="/resources">Resources</a>
+            </li>
+            <li class=" {% block aboutactive %}  {% endblock aboutactive %}">
+              <a  href="/about">About</a>
+            </li>
+            <li class=" {% block contactactive %}  {% endblock contactactive %} ">
+              <a  href="/contact">Contact</a>
+            </li>
+    
+          </ul>
+    </nav>
+          {% comment %}  
+    {% if user.is_authenticated %}
+    <ul class="navbar-nav mr-2">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+          Welcome {{request.user}}</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/logout">Logout</a>
+        </div>
+      </li>
+    </ul>
   </div>
-  {% endfor %}
+  {% else %}
+  <!-- Button to  trigger Login modal -->
+  <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#loginModal">
+    Login
+  </button>
+
+  <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#signupModal">
+    SignUp
+  </button>
+  {% endif %} 
+
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+<strong>Message : </strong> {{ message }}
+<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  <span aria-hidden="true">&times;</span>
+</button>
+</div>
+{% endfor %}
 
 
-
-
-
-  <!-- SignUp Modal -->
-  <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModal" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="signupModalTitle">SignUp Here</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+<!-- SignUp Modal -->
+<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModal" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="signupModalTitle">SignUp Here</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form action="/signup" method='post'>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" id="username" name="username"
+            placeholder="Choose a unique username" required>
         </div>
-        <div class="modal-body">
-          <form action="/signup" method='post'>
-            <div class="form-group">
-              <label for="username">Username</label>
-              <input type="text" class="form-control" id="username" name="username"
-                placeholder="Choose a unique username" required>
-            </div>
-            <div class="form-group">
-              <label for="fname">First Name</label>
-              <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter Your First Name"
-                required>
-            </div>
-            <div class="form-group">
-              <label for="lname">Last Name</label>
-              <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Your Last Name"
-                required>
-            </div>
-            <div class="form-group">
-              <label for="email">Email address</label>
-              <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
-            </div>
-            <div class="form-group">
-              <label for="pass1">Choose a password</label>
-              <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Choose Your Password"
-                required>
-            </div>
-            <div class="form-group">
-              <label for="pass2">Confirm Password</label>
-              <input type="password" class="form-control" id="pass2" name="pass2"
-                placeholder="Enter your password again" required>
-            </div>
+        <div class="form-group">
+          <label for="fname">First Name</label>
+          <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter Your First Name"
+            required>
+        </div>
+        <div class="form-group">
+          <label for="lname">Last Name</label>
+          <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Your Last Name"
+            required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="pass1">Choose a password</label>
+          <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Choose Your Password"
+            required>
+        </div>
+        <div class="form-group">
+          <label for="pass2">Confirm Password</label>
+          <input type="password" class="form-control" id="pass2" name="pass2"
+            placeholder="Enter your password again" required>
+        </div>
 
 
-            {% csrf_token %}
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
-        </div>
-        <div class="modal-footer">
-        </div>
-      </div>
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    <div class="modal-footer">
     </div>
   </div>
+</div>
+</div>
 
-  <!-- Login Modal -->
-  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="loginModalTitle">Login Here</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="loginModalTitle">Login Here</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form action="/login" method="POST"> {% csrf_token %}
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" id="loginusername" name="loginusername"
+            placeholder="Enter your username " required>
         </div>
-        <div class="modal-body">
-          <form action="/login" method="POST"> {% csrf_token %}
-            <div class="form-group">
-              <label for="username">Username</label>
-              <input type="text" class="form-control" id="loginusername" name="loginusername"
-                placeholder="Enter your username " required>
-            </div>
-            <div class="form-group">
-              <label for="pass">Enter your password </label>
-              <input type="password" class="form-control" id="loginpassword" name="loginpassword"
-                placeholder="Enter your password " required>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
+        <div class="form-group">
+          <label for="pass">Enter your password </label>
+          <input type="password" class="form-control" id="loginpassword" name="loginpassword"
+            placeholder="Enter your password " required>
         </div>
-        <div class="modal-footer">
-        </div> 
-        
-        
-        {% endcomment %}
 
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    <div class="modal-footer">
+    </div> 
+    {% endcomment %}
 
+    <aside>
+        <div class="button-container">
+            <button>Courses</button>
+            <button>Discussions</button>
+            <button>Resources</button>
+            <button class="disabled "><a href="/resources/filterpage" role="button">My Docs</a></button>
+        </div>
+    </aside>
 
-        {% block body %} {% endblock body %}
-        
-        {% block js %} {% endblock js %}
-        <!-- Optional JavaScript -->
+    <main>
+        <!-- <img src="thumb.jpg" alt="Main Image" class="main-image"> -->
+        {% comment %} <div class="images">
+            <a href="#"><img src="{% static 'thumb.jpg' %}" alt=""></a>
+            <a href="#"> <img src="{% static 'thumb.jpg' %}" alt=""></a>
+            <a href="#"> <img src="{% static 'thumb.jpg' %}" alt=""></a><br>
+            <a href="#"> <img src="{% static 'thumb.jpg' %}" alt=""></a>
+            <a href="#"> <img src="{% static 'thumb.jpg' %}" alt=""></a>
+            <a href="#"> <img src="{% static 'thumb.jpg' %}" alt=""></a>
+        </div> {% endcomment %}
+        <div class="container">
+        </div>{% block body %} {% endblock body %}
+          
+    </main>
+    
+    <footer>
+        &copy; mycollegehub. All Rights Reserved.
+        <div class="logos">
+            <a href="#" class="fa fa-facebook"></a>
+            <a href="#" class="fa fa-twitter"></a>
+            <a href="#" class="fa fa-linkedin"></a>
+            <!-- <a href="#" class="fa fa-youtube"></a> -->
+            <a href="#" class="fa fa-instagram"></a>
+        </div>
+    </footer>
+
+    {% block js %} {% endblock js %}
+    <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-          integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-          crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-          integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-          crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-          integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-          crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+{% comment %} <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+  crossorigin="anonymous"></script> {% endcomment %}
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+  integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+  crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+  integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+  crossorigin="anonymous"></script>
 </body>
 
 </html>

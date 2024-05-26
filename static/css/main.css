@@ -1,0 +1,88 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+
+aside {
+    background-color: #666;
+    padding: 20px;
+    width: 200px;
+    float: left;
+    height: 80vh;
+}
+
+/* CSS for buttons in aside */
+.button-container {
+    display: flex;
+    flex-direction: column;
+}
+
+aside button {
+    margin-bottom: 1px;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    background-color: #af4c63;
+    color: white;
+    cursor: pointer;
+}
+aside button a {
+    text-decoration: none;
+    color: yellow;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+main {
+    height: 80vh;
+    text-align: center;
+    background-color: white;
+}
+
+main button {
+    margin: 5px 500px;
+    padding: 5px 20px;
+    border: none;
+    background-color: palevioletred;
+    color: white;
+    cursor: pointer;
+    display: block;
+}
+
+/* CSS for image */
+.main-image {
+    display: block;
+    margin: 0 auto;
+    width: 600px;
+    /* Adjust width as needed */
+    height: auto;
+    /* margin-top: 20px; */
+}
+
+.main img {
+    height: 100%;
+    width: 100%;
+  
+}
+
+.images {
+    padding: 40px 0px;
+    /* background: #000; */
+ 
+}
+
+.images img {
+    border: 2px solid black;
+    border-radius: 10px;
+    margin: 4px 5px;
+    height: 70px;
+    width: 140px;
+    /* cursor: pointer; */
+}
+img :hover{
+    background-color: #45a049;
+}
