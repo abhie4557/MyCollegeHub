@@ -25,8 +25,8 @@ admin.site.index_title="Welcome to CollegeHub Admin Panel"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
-    path('person/', include('person.urls')),
     path('discussion/', include('discussion.urls')),
     path('resources/', include('resources.urls')),
     path('chat/', include('chat.urls')),
+    path('users/', include('users.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

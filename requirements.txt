@@ -9,3 +9,4 @@ pymongo==3.12.1  #Still shows warning but works :-D
 
 python-dotenv==1.0.1
 pytz==2024.1  #date-time-something-module needed for djongo to work 
+sqlparse==0.2.4

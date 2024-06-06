@@ -2,81 +2,59 @@
 
 {% block title %}CollegeHub|Filters{% endblock title %}
 {% block resourceactive %} active {% endblock resourceactive %}
-
 {% load static %}
 
 {% block body %}
+<div class="filterform">
 
-<form action="http://127.0.0.1:8000/resources/filter" method="get">
-
-    <select id="courseSelect" name="courseSelect">
-        <option value="" >Choose a Course</option>
-        <option value="BCA"{% if course == "BCA" %}selected{% endif %} >BCA</option>
-        <option value="BBA"{% if course == "BBA" %}selected{% endif %}>BBA</option>
-        <option value="HM"{% if course == "HM" %}selected{% endif %}>HM</option>
-        <!-- Add more options as needed -->
-    </select>
-    <select id="semesterSelect" name="semesterSelect">
-        <option value="">Choose a Semester</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <!-- Add more options as needed -->
-    </select>
-    <select id="resourceSelect" name="resourceSelect">
-        <option value="">Resource type</option>
-        <option value="notes">Notes</option>
-        <option value="previousyearpaper">Previous Year Papers</option>
-        <option value="assignment">Assignments</option>
-        <!-- Add more options as needed -->
-    </select>
-
-    <input type="text" id="yearInput" name="year" placeholder="Enter Year">
-    <a href="/resources/filterpage" role="button">Clear Filters</a>
-    <button type="submit">Apply Filters</button>
+    <form action="http://127.0.0.1:8000/resources/filter" method="get">
+    {% comment %} 
+    {% if type == "notes" %}<input type="hidden" id="type" name="type" value ="notes">{% endif %}
+    {% if type == "paper" %}<input type="hidden" id="type" name="type" value ="paper">{% endif %}
+    {% if type == "assignment" %}<input type="hidden" id="type" name="type" value ="assignment">{% endif %} 
+    {% endcomment %}
     
-</form>
+        <select id="courseSelect" name="courseSelect">
+            <option value="" >Choose a Course</option>
+            <option value="BCA"{% if course == "BCA" %}selected{% endif %} >BCA</option>
+            <option value="BBA"{% if course == "BBA" %}selected{% endif %}>BBA</option>
+            <option value="HM"{% if course == "HM" %}selected{% endif %}>HM</option>
+            <!-- Add more options as needed -->
+        </select>
+        <select id="semesterSelect" name="semesterSelect">
+            <option value="">Choose a Semester</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <!-- Add more options as needed -->
+        </select>
+        <select id="resourceSelect" name="resourceSelect">
+            <option value="paper">Resource type</option>
+            <option value="notes" selected>Notes</option>
+            <option value="paper">Previous Year Papers</option>
+            <option value="assignment">Assignments</option>
+            <!-- Add more options as needed -->
+        </select>
+    
+        <input type="text" id="yearInput" name="year" placeholder="Enter Year">
+        <a href="/resources/filterpage" role="button">Clear Filters</a>
+        <button type="submit">Apply Filters</button>
+        
+    </form>
+</div>
 
 <div id="filteredData">
     {% for item in data %}
-    <a href="http://127.0.0.1:8000/media/{{item.paper_file}}">{{ item.subject}}</a>, {{item.year}},{{item.course}}, Semester {{item.semester}}<br>
+
+    <div class="course-info">
+    <a href="http://127.0.0.1:8000/media/{{item.pdf_file}}" class="pdf-link"><img src="{% static 'img/pdf.png' %}" alt="PDF icon" class="pdf-icon"> {{ item.subject}}</a>, <span>{{item.year}},{{item.course}}, Semester {{item.semester}}</span>
+    <a href="http://127.0.0.1:8000/media/{{item.pdf_file}}" download class="download-link">Download</a><br>
+
+   </div>
+
    {% endfor %}
 </div>
-
 {% endblock body %}
-
-{% comment %} 
-{% block js %}
-<script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-        // List of all form fields
-        const formFields = ['courseSelect', 'semesterSelect', 'resourceSelect', 'yearInput'];
-    
-        // Load saved values from localStorage
-        formFields.forEach(field => {
-            const element = document.getElementById(field);
-            const savedValue = localStorage.getItem(field);
-            if (savedValue) {
-                element.value = savedValue;
-            }
-        });
-    
-        // Add event listeners to save values to localStorage when they change
-        formFields.forEach(field => {
-            const element = document.getElementById(field);
-            element.addEventListener('change', (event) => {
-                localStorage.setItem(field, event.target.value);
-            });
-        });
-    
-        // Save input field values as well on input event
-        document.getElementById('yearInput').addEventListener('input', (event) => {
-            localStorage.setItem('yearInput', event.target.value);
-        });
-    });
-    </script>
-    {% endblock js %}
-     {% endcomment %}

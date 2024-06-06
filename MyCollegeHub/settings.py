@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig', 
     'discussion.apps.DiscussionConfig', 
     'resources.apps.ResourcesConfig', 
+    'users.apps.UsersConfig', 
     'chat.apps.ChatConfig', 
-    'person',
     'djongo',
 ]
 

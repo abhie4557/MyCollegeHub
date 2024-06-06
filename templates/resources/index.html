@@ -1,29 +1,14 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}CollegeHub|Resources{% endblock title %}
 {% block resourceactive %} active {% endblock resourceactive %}
-
-{% load static %}
-
 {% block body %}
 <div class="images">
-    <a href="#"><img src="{% static 'thumb.jpg' %}" alt=""></a>
-    <a href="#"> <img src="{% static 'thumb.jpg' %}" alt=""></a>
-    <a href="/resources/filterpage"> <img src="{% static 'thumb.jpg' %}" alt=""></a><br>
-    <a href="#"> <img src="{% static 'thumb.jpg' %}" alt=""></a>
-    <a href="#"> <img src="{% static 'thumb.jpg' %}" alt=""></a>
-    <a href="#"> <img src="{% static 'thumb.jpg' %}" alt=""></a>
+    <a href="/resources/{{course}}/Notes" ><img src="{% static 'img/notes.jpg' %}" alt="Notes"></a>
+    <a href="/resources/{{course}}/Previous Year Papers"><img src="{% static 'img/pyp.jpg' %}" alt="Previous Year Papers"></a>
+    <a href="/resources/{{course}}/Assignments" ><img src="{% static 'img/assignment.jpg' %}" alt="Assignments"></a>
+    <a href="/resources/filterpage" ><img src="{% static 'img/filter.jpg' %}" alt="Filters"></a>
 </div> 
-<div >
-    <a href="/resources/pdf/notes/" role="button">Notes</a>
-    <br>
-    <br>
-    <a href="/pdf/papers" role="button">Previous Year Papers</a>
-    <br>
-    <br>
-    <a href="/pdf/assignments" role="button">Assignments</a>
-    <br>
-    <br>
-    <a href="/resources/filterpage" role="button">Filters</a>
-</div>
 {% endblock body %}
+ 

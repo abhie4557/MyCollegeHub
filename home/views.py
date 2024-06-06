@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from home.models import Contact
+from resources.models import Paper
 from django.contrib import messages 
 from django.contrib.auth.models import User 
 from django.contrib.auth  import authenticate,  login, logout
@@ -24,8 +25,26 @@ def contact(request):
 
 def search(request):
     query=request.GET['query']
+    print(query)
     if len(query)>78:
-        allDiscussions=Discussion.objects.none()
+        allDiscussions=Paper.objects.none()
+    else:
+        allDiscussionsTitle= Paper.objects.filter(subject__icontains=query)
+        allDiscussionsAuthor= Paper.objects.filter(course__icontains=query)
+        allDiscussionsContent =Paper.objects.filter(semester__icontains=query)
+        allDiscussions=  allDiscussionsTitle.union(allDiscussionsContent, allDiscussionsAuthor)
+    if allDiscussions.count()==0:
+        messages.warning(request, "No search results found. Please refine your query.")
+    params={'allDiscussions': allDiscussions, 'query': query}
+    print(params)
+    print(allDiscussions)
+    return render(request, 'home/search.html', params)
+
+def searchdiscussion(request):
+    query=request.GET['query']
+    print(query)
+    if len(query)>78:
+        Result=Discussion.objects.none()
     else:
         allDiscussionsTitle= Discussion.objects.filter(title__icontains=query)
         allDiscussionsAuthor= Discussion.objects.filter(author__icontains=query)
@@ -47,10 +66,10 @@ def handleSignUp(request):
         lname=request.POST['lname']
         pass1=request.POST['pass1']
         pass2=request.POST['pass2']
-
+        print(username)
         # check for errorneous input
-        if len(username)<10:
-            messages.error(request, " Your user name must be under 10 characters")
+        if len(username)>20:
+            messages.error(request, " Your username must be under 20 characters")
             return redirect('home')
 
         if not username.isalnum():
@@ -65,7 +84,7 @@ def handleSignUp(request):
         myuser.first_name= fname
         myuser.last_name= lname
         myuser.save()
-        messages.success(request, " Your iCoder has been successfully created")
+        messages.success(request, " Your MyCollegeHub account has been successfully created")
         return redirect('home')
 
     else:
@@ -73,21 +92,22 @@ def handleSignUp(request):
 
 
 def handeLogin(request):
-    # if request.method=="POST":
-    #     # Get the post parameters
-    #     loginusername=request.POST['loginusername']
-    #     loginpassword=request.POST['loginpassword']
+    if request.method=="POST":
+        # Get the post parameters
+        loginusername=request.POST['loginusername']
+        loginpassword=request.POST['loginpassword']
+        print(loginusername)
+        print(loginpassword)
+        user=authenticate(username= loginusername, password= loginpassword)
+        if user is not None:
+            login(request, user)
+            messages.success(request, "Successfully Logged In")
+            return redirect("home")
+        else:
+            messages.error(request, "Invalid credentials! Please try again")
+            return redirect("home")
 
-    #     user=authenticate(username= loginusername, password= loginpassword)
-    #     if user is not None:
-    #         login(request, user)
-    #         messages.success(request, "Successfully Logged In")
-    #         return redirect("home")
-    #     else:
-    #         messages.error(request, "Invalid credentials! Please try again")
-    #         return redirect("home")
-
-    # return HttpResponse("404- Not found")
+    return HttpResponse("404- Not found")
     return render(request, 'home/login.html')
    
 

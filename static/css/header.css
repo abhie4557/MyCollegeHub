@@ -24,11 +24,14 @@ nav {
 }
 
 nav[role="sub"] ul li {
-  background-color: #eee;
+  margin: 6px;
+  padding: 4px;
+  border-radius: 2px;
+  background-color: #6296c7;
   display: inline;
 }
 nav[role="sub"] ul li a{
-  /* text-decoration: none; */
+  text-decoration: none;
   color: black;
 }
 
@@ -67,6 +70,20 @@ nav[role="sub"] ul li a{
 }
 
 .login a:hover {
-  background-color: #d12a2a;
+  background-color: green;
+}
+
+.login button{
+  text-decoration: none;
+  color: white;
+  background-color: #333;
+  padding: 8px 15px;
+  border: 1px solid #fff;
+  border-radius: 4px;
+}
+
+.login button:hover {
+  background-color: green;
+  cursor: pointer;
 }
 

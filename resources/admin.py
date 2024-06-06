@@ -1,7 +1,8 @@
 from django.contrib import admin
-from resources.models import PDFDocument, PDFNote,Paper
+from resources.models import PDFDocument, PDFNote,Paper,Assignment
 # Register your models here.
 
 admin.site.register(PDFDocument)
 admin.site.register(PDFNote)
 admin.site.register(Paper)
+admin.site.register(Assignment)

@@ -6,11 +6,11 @@ body {
 
 
 aside {
-    background-color: #666;
+    background-color: #444;
     padding: 20px;
     width: 200px;
     float: left;
-    height: 80vh;
+    height: 88vh;
 }
 
 /* CSS for buttons in aside */
@@ -20,30 +20,32 @@ aside {
 }
 
 aside button {
+    margin-top: 4px;
     margin-bottom: 1px;
     padding: 10px;
     width: 100%;
     border: none;
-    background-color: #af4c63;
+    background-color: #6296c7;
     color: white;
     cursor: pointer;
 }
 aside button a {
     text-decoration: none;
-    color: yellow;
+    color: white;
+    
 }
 
-button:hover {
+aside button:hover {
     background-color: #45a049;
 }
 
 main {
-    height: 80vh;
-    text-align: center;
+    height: 87vh;
+    /* text-align: center; */
     background-color: white;
 }
 
-main button {
+/* main button {
     margin: 5px 500px;
     padding: 5px 20px;
     border: none;
@@ -51,13 +53,13 @@ main button {
     color: white;
     cursor: pointer;
     display: block;
-}
+} */
 
 /* CSS for image */
 .main-image {
     display: block;
     margin: 0 auto;
-    width: 600px;
+    width: 650px;
     /* Adjust width as needed */
     height: auto;
     /* margin-top: 20px; */
@@ -70,19 +72,56 @@ main button {
 }
 
 .images {
+    overflow: hidden;
     padding: 40px 0px;
     /* background: #000; */
  
 }
 
 .images img {
+    transition: transform 0.5s ease;
     border: 2px solid black;
     border-radius: 10px;
     margin: 4px 5px;
-    height: 70px;
-    width: 140px;
+    height: 130px;
+    width: 400px;
     /* cursor: pointer; */
 }
-img :hover{
-    background-color: #45a049;
+.images :hover img{ 
+    transform: scale(0.9);
+    cursor: pointer;
+}
+
+.home-images-container{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-images img{
+    margin: 0px 5px;
+    transition: transform 0.5s ease;
+    border: 2px solid black;
+    border-radius: 10px;
+    height: 80px;
+    width: 200px;
+    
+    
+}
+.home-images :hover img{ 
+    transform: scale(0.9);
+    cursor: pointer;
+}
+/* Styles for the <h3> element */
+.resource-heading h3 {
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    color: #333;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    margin: 20px 0;
 }

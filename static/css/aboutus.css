@@ -1,0 +1,25 @@
+/* Styles for the About Us page */
+
+.about-us-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* About Us section styles */
+.about-us-section {
+    background-color: #f8f8f8;
+    text-align: center;
+}
+
+.about-us-section h1 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 50px;
+}
+
+.about-us-section p {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 20px;
+}

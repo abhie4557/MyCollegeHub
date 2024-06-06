@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}CollegeHub|Alldocs{% endblock title %}
+
+{% block body %}
+<div class="resource-heading">
+    <h3>{{course}} {{type}}</h3>
+</div>
+<div id="allDocs">
+    {% for item in data %}
+
+    <div class="course-info">
+
+    <a href="http://127.0.0.1:8000/media/{{item.pdf_file}}" target="_blank" class="pdf-link"><img src="{% static 'img/pdf.png' %}" alt="PDF icon" class="pdf-icon"> {{ item.subject}}</a>, <span>{{item.year}},{{item.course}}, Semester {{item.semester}}</span>
+    <a href="http://127.0.0.1:8000/media/{{item.pdf_file}}" download class="download-link">Download</a><br>
+
+   </div>
+
+   {% endfor %}
+</div>
+
+{% endblock body %}

@@ -1,7 +1,19 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}CollegeHub|Home{% endblock title %}
 {% block homeactive %} active {% endblock homeactive %}
 {% block body %}
-homepage
+ <img src="{% static 'img/mainimg1.jpg' %}" alt="Main Image" class="main-image">
+    <div class="home-images-container">
+
+        <div class="home-images">
+            <a href="/resources/filterpage"> <img src="{% static 'img/filter.jpg' %}" alt="Filter"></a>
+            <a href="/resources/BCA"> <img src="{% static 'img/bca.png' %}" alt="BCA"></a>
+            <br>
+            <a href="/resources/BBA"> <img src="{% static 'img/bba.png' %}" alt="BBA"></a>
+            <a href="/resources/BHM"> <img src="{% static 'img/hm.png' %}" alt="BHM"></a>
+        </div> 
+    </div>
+
 {% endblock body %}

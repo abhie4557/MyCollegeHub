@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import PDFDocument, Paper, PDFNote
-from .models import resources_pdfnote, resources_paper
+from .models import resources_pdfnote, resources_paper,resources_assignment
 from django.http import FileResponse, Http404, HttpResponse,JsonResponse
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
@@ -11,70 +11,152 @@ from bson import ObjectId  # Import ObjectId from bson package
 # Create your views here.
 
 def index(request):
-    return render(request, 'resources/index.html')
+    # Get the path of the request
+    request_path = request.path
+    context ={}
+    
+    if request_path == '/resources/BCA':
+        context['course'] = "BCA"
+    elif request.path == '/resources/BBA':
+        context['course'] = "BBA"
+    elif request.path == '/resources/BHM':
+        context['course'] = "BHM"
+        
+    return render(request, 'resources/index.html', context)
+
 
 def filter(request):
     return render(request, 'resources/filters.html')
 
-def convert_to_json(obj):
-    if isinstance(obj, ObjectId):
-        return str(obj)  # Convert ObjectId to string
-    elif isinstance(obj, dict):
-        return {key: convert_to_json(value) for key, value in obj.items()}  # Recursively convert nested dicts
-    elif isinstance(obj, list):
-        return [convert_to_json(item) for item in obj]  # Recursively convert lists
-    return obj  # For other types, return as-is
-
-
-def filtered_data(request):
-    course= request.GET['courseSelect']
-    year = request.GET['year']
-    print(course)
+def bcadocs(request, type):
+    course= "BCA"
+    type = type
     filter_query = {}
-    if course:
-        filter_query['course'] = course
-    if year:
-        filter_query['year'] = int(year)
-    if not course and not year:
-        print("no filter query")
+          
+    filter_query['course'] = course
+    
+ 
+    print(filter_query)
     
     # return render(request, 'resources/index.html', {'data':filtered_docs} )
+    if type == "Previous Year Papers":
+        filtered_documents = list(resources_paper.find(filter_query))
+    elif type == "Notes":
+        filtered_documents = list(resources_pdfnote.find(filter_query))
+    elif type == "Assignments":
+        filtered_documents = list(resources_assignment.find(filter_query))
     
-    filtered_documents = list(resources_paper.find(filter_query))
     # Convert MongoDB documents to Python dictionaries
     python_documents = [doc for doc in filtered_documents]
     
-    # Convert Python dictionaries to JSON-compatible format
-    # json_documents = convert_to_json(python_documents)
+    docs={'data':python_documents}
+    
+    # Merge the two dictionaries
+    context = {**filter_query, **docs, **{'type':type}}
+    
+    print(filtered_documents)
+    print(python_documents)
+    return render(request, "resources/alldocs.html", context)
+
+def bbadocs(request, type):
+    course= "BBA"
+    type = type
+    filter_query = {}
+          
+    filter_query['course'] = course
+    
+ 
     print(filter_query)
+    
+    # return render(request, 'resources/index.html', {'data':filtered_docs} )
+    if type == "Previous Year Papers":
+        filtered_documents = list(resources_paper.find(filter_query))
+    elif type == "Notes":
+        filtered_documents = list(resources_pdfnote.find(filter_query))
+    elif type == "Assignments":
+        filtered_documents = list(resources_assignment.find(filter_query))
+    
+    # Convert MongoDB documents to Python dictionaries
+    python_documents = [doc for doc in filtered_documents]
+    
+    docs={'data':python_documents}
+    
+    # Merge the two dictionaries
+    context = {**filter_query, **docs, **{'type':type}}
+    
+    print(filtered_documents)
+    print(python_documents)
+    return render(request, "resources/alldocs.html", context)
+
+def bhmdocs(request, type):
+    course= "BHM"
+    type = type
+    filter_query = {}
+          
+    filter_query['course'] = course
+    
+ 
+    print(filter_query)
+    
+    # return render(request, 'resources/index.html', {'data':filtered_docs} )
+    if type == "Previous Year Papers":
+        filtered_documents = list(resources_paper.find(filter_query))
+    elif type == "Notes":
+        filtered_documents = list(resources_pdfnote.find(filter_query))
+    elif type == "Assignments":
+        filtered_documents = list(resources_assignment.find(filter_query))
+    
+    # Convert MongoDB documents to Python dictionaries
+    python_documents = [doc for doc in filtered_documents]
+    
+    docs={'data':python_documents}
+    
+    # Merge the two dictionaries
+    context = {**filter_query, **docs, **{'type':type}}
+    
+    print(filtered_documents)
+    print(python_documents)
+    return render(request, "resources/alldocs.html", context)
+
+    
+def filtered_data(request):
+    course= request.GET['courseSelect']
+    semester= request.GET['semesterSelect']
+    year = request.GET['year']
+    type = request.GET['resourceSelect']
+    
+    filter_query = {}
+    if course:
+        filter_query['course'] = course
+    if semester:
+        filter_query['semester'] = semester
+    if year:
+        filter_query['year'] = int(year)
+    
+    if not course and not year:
+        print("no filter query")
+    
+    if type == "paper":
+        filtered_documents = list(resources_paper.find(filter_query))
+    elif type == "notes":
+        filtered_documents = list(resources_pdfnote.find(filter_query))
+    elif type == "assignment":
+        filtered_documents = list(resources_assignment.find(filter_query))
+        
+    # Convert MongoDB documents to Python dictionaries
+    python_documents = [doc for doc in filtered_documents]
+    
+    print(filter_query)
+    print(python_documents)
     
     docs={'data':python_documents}
     
     # Merge the two dictionaries
     context = {**filter_query, **docs}
-    
+    print("filter query passed to filter page")
+    print(filter_query)
     return render(request, "resources/filters.html", context)
-
-    # return render(request, "resources/filters.html", {'data':python_documents})
-
-    # return JsonResponse(json_documents, safe=False)
    
-def findpdftest(request, pdf_cat):
-    pdf_id={}
-
-    if pdf_cat=='notes':
-        pdf_notes_ids = list(PDFNote.objects.values_list('id', flat=True))
-    elif pdf_cat=='papers': 
-        papers_ids = list(Paper.objects.values_list('id', flat=True))
-        pass
-    elif pdf_cat=='assignments':
-        # assignment_ids = list(Assignment.objects.values_list('pdf_id', flat=True))
-        pass
-    pdf_id=papers_ids
-    print(pdf_id)
-    # all_pdf_ids = pdf_notes_ids + papers_ids + assignment_ids
-    context = {'pdf_id': pdf_id}
-    return render(request, 'resources/pdf_view.html', context)
 
 # -----------Display pdf function for media files-----------------
 def display_pdf(request, filename):

@@ -8,12 +8,11 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 def index(request): 
     alldiscussions= Discussion.objects.all()
-    # context={'alldiscussions': alldiscussions}
-    # print(context)
+    context={'alldiscussions': alldiscussions}
+    print(context)
     return render(request, "discussion/index.html", {'alldiscussions': alldiscussions})
 
 
-@login_required
 def discussion(request, slug): 
     print(slug)
     discussion=Discussion.objects.filter(slug=slug).first()
@@ -21,20 +20,20 @@ def discussion(request, slug):
     # discussion.views= Discussion.views +1
     discussion.save()
     
-    # comments= DiscussionComment.objects.filter(Discussion=discussion, parent=None)
-    # replies= DiscussionComment.objects.filter(Discussion=discussion).exclude(parent=None)
-    # replyDict={}
-    # for reply in replies:
-    #     if reply.parent.sno not in replyDict.keys():
-    #         replyDict[reply.parent.sno]=[reply]
-    #     else:
-    #         replyDict[reply.parent.sno].append(reply)
+    comments= DiscussionComment.objects.filter(Discussion=discussion, parent=None)
+    replies= DiscussionComment.objects.filter(Discussion=discussion).exclude(parent=None)
+    replyDict={}
+    for reply in replies:
+        if reply.parent.sno not in replyDict.keys():
+            replyDict[reply.parent.sno]=[reply]
+        else:
+            replyDict[reply.parent.sno].append(reply)
 
-    # context={'Discussion':discussion, 'comments': comments, 'user': request.user, 'replyDict': replyDict}
+    context={'Discussion':discussion, 'comments': comments, 'user': request.user, 'replyDict': replyDict}
     return render(request, "discussion/threads.html")
 
 
-@login_required
+
 def DiscussionComment(request):
     if request.method == "POST":
         comment=request.POST.get('comment')

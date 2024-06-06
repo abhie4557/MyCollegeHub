@@ -1,0 +1,42 @@
+.course-info {
+    margin-bottom: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .course-info .pdf-link {
+    color: #E53935;
+    text-decoration: none;
+    font-weight: bold;
+    position: relative;
+    padding-left: 20px;
+  }
+  
+  .course-info .pdf-icon {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px; /* Adjust size as needed */
+    height: auto;
+  }
+  
+  .course-info span {
+    color: #555;
+  }
+  .course-info a.download-link {
+    display: inline-block;
+    margin-top: 5px;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: white;
+    background-color: #007bff;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.course-info a.download-link:hover {
+    background-color: #0056b3;
+}
