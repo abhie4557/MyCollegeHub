@@ -1,0 +1,72 @@
+  
+  .discussion-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  
+  .discussion-main {
+    width: 70%;
+  }
+  
+  .discussion-heading {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .discussion-heading .icon {
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
+  }
+  
+  .discussion-content {
+    margin-bottom: 20px;
+  }
+  
+  .open-discussion {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #007BFF;
+  }
+  
+  .open-discussion .icon {
+    height: 30px;
+    width: 30px;
+    margin-right: 5px;
+  }
+  
+  .discussion-sidebar {
+    float: right;
+    width: 25%;
+    padding-left: 20px;
+    border-left: 1px solid #ddd;
+  }
+  
+  .quick-links, .popular-tags {
+    margin-bottom: 20px;
+  }
+  
+  .quick-links h3, .popular-tags h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .quick-links ul, .popular-tags ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .quick-links li, .popular-tags li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .quick-links li .icon, .popular-tags li .icon {
+    margin-right: 10px;
+  }
+  

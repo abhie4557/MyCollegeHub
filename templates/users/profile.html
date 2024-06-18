@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="profile-header">
+    {% if user.userprofile.profile_picture %}
+        <img src="{{ user.userprofile.profile_picture.url }}" alt="{{ user.username }}">
+    {% endif %}
+    <h2>{{ user.username }}</h2>
+    <p>{{ user.userprofile.bio }}</p>
+</div>
+<div class="upload-form">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save changes</button>
+    </form>
+</div>
+{% endblock %}

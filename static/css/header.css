@@ -87,3 +87,50 @@ nav[role="sub"] ul li a{
   cursor: pointer;
 }
 
+.profile-pic {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-pic img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: box-shadow 0.3s ease;
+}
+
+.profile-pic img:hover {
+  cursor: pointer;
+  border: 2px solid #6296c7;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 50px; /* Adjust this value as needed */
+  right: 0;
+  background-color: white;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 5px;
+  width: 200px; /* Adjust this value as needed */
+}
+
+.dropdown-menu a {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown-menu img {
+  margin-right: 10px;
+  width: 20px; /* Adjust this value as needed */
+  height: 20px; /* Adjust this value as needed */
+}

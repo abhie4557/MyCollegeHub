@@ -12,31 +12,102 @@ aside {
     float: left;
     height: 88vh;
 }
+/* 
+
+  
+  .sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+} */
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sidebar-nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.sidebar-nav ul li {
+    width: 100%;
+}
+
+.sidebar-nav ul li a {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    color: #ecf0f1;
+    text-decoration: none;
+    text-align: center;
+    width: 100%;
+}
+
+.sidebar-nav ul li a img {
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
+}
+
+.sidebar-nav ul li a:hover {
+    background-color: #304a5c;
+}
+
+.dropdown {
+    position: relative;
+    width: 100%;
+}
+
+.dropbtn {
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    flex-direction: column;
+    align-items: center;
+    }
+    
+    .dropdown-content a {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    text-decoration: none;
+    color: #ecf0f1;
+    text-align: left;
+    width: 100%;
+}
+
+.dropdown-content a img {
+    margin-right: 10px;
+}
+
+
+.dropdown:hover .dropdown-content {
+    display: flex;
+}
 
 /* CSS for buttons in aside */
 .button-container {
     display: flex;
     flex-direction: column;
-}
-
-aside button {
-    margin-top: 4px;
-    margin-bottom: 1px;
-    padding: 10px;
-    width: 100%;
-    border: none;
-    background-color: #6296c7;
-    color: white;
-    cursor: pointer;
-}
-aside button a {
-    text-decoration: none;
-    color: white;
-    
-}
-
-aside button:hover {
-    background-color: #45a049;
 }
 
 main {
@@ -125,3 +196,25 @@ main {
     text-align: center;
     margin: 20px 0;
 }
+
+.course-heading-container {
+    display: flex;
+    align-items: center;
+    margin: 20px;
+}
+
+
+.course-heading-container .icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+
+.course-heading-container .heading {
+    font-size: 24px;
+    color: #333;
+}
+
+
+  

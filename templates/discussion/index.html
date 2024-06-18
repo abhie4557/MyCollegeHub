@@ -1,20 +1,51 @@
 {% extends "base.html" %}
 
-{% block title %}CollegeHub|Discussion{% endblock title %}
+{% block title %}MyCollegeHub|Discussion{% endblock title %}
 {% block discussionactive %} active {% endblock discussionactive %}
-
+{% load static %}
 {% block body %}
-
 {% for item in alldiscussions %}
-<div class="container">
-<h3>
-    {{item.title}}
-</h3>
-<p>
-    {{item.content}}
-</p>
-<a href="#">View Discussion</a>
+<div class="discussion-container">
+    <div class="discussion-main">
+        <h2 class="discussion-heading">
+            <img src="{% static 'img/icons/discussion_icon.png' %}" alt="Discussion Icon" class="icon">
+           {{item.title}}
+        </h2>
+        <p class="discussion-content">{{item.content}}...</p>
+        <a href="#" class="open-discussion">
+            <img src="{% static 'img/icons/open_icon.png' %}" alt="Open Icon" class="icon">
+            Open Discussion
+        </a>
+    </div>
 </div>
-
 {% endfor %}
+
+{% comment %} 
+    <div class="discussion-sidebar" >
+        <div class="quick-links">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><img src="icons/popular-content-icon.png" alt="Popular Content Icon" class="icon"> Popular Content</li>
+                <li><img src="icons/my-activity-icon.png" alt="My Activity Icon" class="icon"> My Activity</li>
+                <li><img src="icons/my-discussions-icon.png" alt="My Discussions Icon" class="icon"> My Discussions</li>
+                <li><img src="icons/bookmarks-icon.png" alt="Bookmarks Icon" class="icon"> Bookmarks</li>
+                <li><img src="icons/my-drafts-icon.png" alt="My Drafts Icon" class="icon"> My Drafts</li>
+                <li><img src="icons/recent-discussions-icon.png" alt="Recent Discussions Icon" class="icon"> Recent Discussions</li>
+                <li><img src="icons/unanswered-icon.png" alt="Unanswered Icon" class="icon"> Unanswered</li>
+                <li><img src="icons/groups-icon.png" alt="Groups Icon" class="icon"> Groups</li>
+                <li><img src="icons/about-community-icon.png" alt="About Community Icon" class="icon"> About Community</li>
+            </ul>
+        </div>
+        <div class="popular-tags">
+            <h3>Popular Tags</h3>
+            <ul>
+                <li><img src="icons/tag-icon.png" alt="Tag Icon" class="icon"> Tag 1</li>
+                <li><img src="icons/tag-icon.png" alt="Tag Icon" class="icon"> Tag 2</li>
+                <li><img src="icons/tag-icon.png" alt="Tag Icon" class="icon"> Tag 3</li>
+                <li><img src="icons/tag-icon.png" alt="Tag Icon" class="icon"> Tag 4</li>
+            </ul>
+        </div>
+    </div>
+</div>  {% endcomment %}
+
 {% endblock body %}

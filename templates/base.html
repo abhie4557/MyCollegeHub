@@ -1,181 +1,237 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>{% block title %} {% endblock title %}</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    {% comment %} <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css"> {% endcomment %}
-    
-    <link rel="stylesheet" href="{%static 'css/main.css' %}">
-    <link rel="stylesheet" href="{%static 'css/header.css' %}">
-    <link rel="stylesheet" href="{%static 'css/footer.css' %}">
-    <link rel="stylesheet" href="{%static 'css/loginsignup.css' %}">
-    <link rel="stylesheet" href="{%static 'css/contactform.css' %}">
-    <link rel="stylesheet" href="{%static 'css/pdfview.css' %}">
-    <link rel="stylesheet" href="{%static 'css/alerts.css' %}">
-    <link rel="stylesheet" href="{%static 'css/filterform.css' %}">
-    <link rel="stylesheet" href="{%static 'css/aboutus.css' %}">
-  </head>
-  
-  <body>
-    <header>
-        <!-- header file -->
-        <h3>My Clg Hub</h3>
-    </header>
 
-    <nav role="main">
-        <div class="logo">
-            <a href="/"><img src="{% static 'img/logo.jpg' %}" alt="Logo"></a>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>{% block title %} {% endblock title %}</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="{%static 'css/main.css' %}">
+  <link rel="stylesheet" href="{%static 'css/header.css' %}">
+  <link rel="stylesheet" href="{%static 'css/footer.css' %}">
+  <link rel="stylesheet" href="{%static 'css/loginsignup.css' %}">
+  <link rel="stylesheet" href="{%static 'css/contactform.css' %}">
+  <link rel="stylesheet" href="{%static 'css/pdfview.css' %}">
+  <link rel="stylesheet" href="{%static 'css/alerts.css' %}">
+  <link rel="stylesheet" href="{%static 'css/filterform.css' %}">
+  <link rel="stylesheet" href="{%static 'css/aboutus.css' %}">
+  <link rel="stylesheet" href="{%static 'css/users.css' %}">
+  <link rel="stylesheet" href="{%static 'css/discussion.css' %}"> 
+</head>
+
+<body>
+  <header>
+    <!-- header file -->
+    <h3>My Clg Hub</h3>
+  </header>
+
+  <nav role="main">
+    <div class="logo">
+      <a href="/"><img src="{% static 'img/logo.jpg' %}" alt="Logo"></a>
+    </div>
+
+    <div>
+      <form method="get" action="#">
+        <input type="search" placeholder="Search" aria-label="Search" name="query">
+        <button type="submit">Search</button>
+      </form>
+    </div>
+
+    <div class="login">
+      {% if user.is_authenticated %}
+      {% if user.userprofile.profile_picture %}
+ 
+      <div class="profile-pic">
+        <img src="{{ user.userprofile.profile_picture.url }}" alt="{{ user.username }}" id="profilePic">
+        <div class="dropdown-menu" id="dropdownMenu">
+          <a href="/users/profile">
+            <img src="{{ user.userprofile.profile_picture.url }}" alt="View Profile Icon"> {{ user.username }}
+          </a>
+          <a href="/users/profile">
+            <img src="{% static 'img/icons/edit_profile_icon.png' %}" alt="Edit Profile Icon"> Edit Profile
+          </a>
+          <a href="/users/documents">
+            <img src="{% static 'img/icons/saved_icon.png' %}" alt="Edit Profile Icon"> Saved Docs
+          </a>
+          <a href="/users/upload">
+            <img src="{% static 'img/icons/upload_icon.png' %}" alt="Edit Profile Icon">Upload Docs
+          </a>
+          <a href="/logout">
+            <img src="{% static 'img/icons/logout_icon.png' %}" alt="Logout Icon"> Logout
+          </a>
+          <a href="#settings">
+            <img src="{% static 'img/icons/settings_icon.png' %}" alt="Settings Icon"> Settings
+          </a>
         </div>
-
-        <div >
-            <form method="get" action="/search" >
-                <input type="search" placeholder="Search" aria-label="Search" name="query"
-                  >
-                <button type="submit">Search</button>
-              </form>
+      </div>
+      
+      {% else %}
+      <div class="profile-pic">
+        <img src="{% static 'img/icons/profile_icon.png' %}" alt="Profile" id="profilePic">
+        <div class="dropdown-menu" id="dropdownMenu">
+          <a href="/users/profile">
+            <img src="{% static 'img/icons/profile_icon.png' %}" alt="Profile"> View Profile
+          </a>
+          <a href="/users/profile">
+            <img src="{% static 'img/icons/edit_profile_icon.png' %}" alt="Edit Profile Icon"> Edit Profile
+          </a>
+          <a href="/users/documents">
+            <img src="{% static 'img/icons/saved_icon.png' %}" alt="Edit Profile Icon"> Saved Docs
+          </a>
+          <a href="/users/upload">
+            <img src="{% static 'img/icons/upload_icon.png' %}" alt="Edit Profile Icon">Upload Docs
+          </a>
+          <a href="/logout">
+            <img src="{% static 'img/icons/logout_icon.png' %}" alt="Logout Icon"> Logout
+          </a>
+          <a href="#settings">
+            <img src="{% static 'img/icons/settings_icon.png' %}" alt="Settings Icon"> Settings
+          </a>
         </div>
+      </div>
+      
+      {% endif %}
 
-        <div class="login">
-            {% if user.is_authenticated %}
-                <a href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-                  {{request.user}}</a>
-                  <a class="dropdown-item" href="/logout">Logout</a>
-          {% else %}
-          <!-- Button to  trigger Login modal -->
-          <button type="button" id="loginBtn">Login</button>
-          <button type="button" id="signupBtn">Sign Up</button>
-          {% endif %} 
-        </div>
+      {% else %}
+      <!-- Button to  trigger Login modal -->
+      <button type="button" id="loginBtn">Login</button>
+      <button type="button" id="signupBtn">Sign Up</button>
+      {% endif %}
+    </div>
 
-    </nav>
+  </nav>
 
-    <nav role="sub">
-        <ul >
-            <li class="{% block homeactive %}  {% endblock homeactive %}">
-              <a  href="/">Home <span class="sr-only"></span></a>
-            </li>
-            <li class="{% block discussionactive %}  {% endblock discussionactive %} ">
-              <a  href="/discussion">Discussion</a>
-            </li>
-            <li class=" {% block aboutactive %}  {% endblock aboutactive %}">
-              <a  href="/about">About</a>
-            </li>
-            <li class=" {% block contactactive %}  {% endblock contactactive %} ">
-              <a  href="/contact">Contact</a>
-            </li>
-    
-          </ul>
-    </nav>
-         
-   
+  <nav role="sub">
+    <ul>
+      <li class="{% block homeactive %}  {% endblock homeactive %}">
+        <a href="/">Home <span class="sr-only"></span></a>
+      </li>
+      <li class="{% block discussionactive %}  {% endblock discussionactive %} ">
+        <a href="/discussion">Discussion</a>
+      </li>
+      <li class=" {% block aboutactive %}  {% endblock aboutactive %}">
+        <a href="/about">About</a>
+      </li>
+      <li class=" {% block contactactive %}  {% endblock contactactive %} ">
+        <a href="/contact">Contact</a>
+      </li>
 
-{% for message in messages %}
-<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-<strong>Message : </strong> {{ message }}
-<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button>
-</div>
-{% endfor %}
+    </ul>
+  </nav>
+
+
+
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+    <strong>Message : </strong> {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %}
 
 
   <!-- Signup Modal -->
   <div id="signupModal" id="signupModal" class="modal">
     <div class="modal-content">
-        <span class="close" id="closeSignup">&times;</span>
-        <h2>MyCollegeHub|Sign Up</h2>
-        <form action="/signup" method='post' id="signupForm">
+      <span class="close" id="closeSignup">&times;</span>
+      <h2>MyCollegeHub|Sign Up</h2>
+      <form action="/signup" method='post' id="signupForm">
 
-          
-          <label for="username">Username</label>
-          <input type="text"  id="username" name="username"
-          placeholder="Enter your username " required>
-          
-                      <label for="email">Email:</label>
-                      <input type="email" id="email" name="email" placeholder="name@example.com" required>
-          
-          <label for="fname">First Name</label>
-          <input type="text" id="fname" name="fname" placeholder="Enter Your First Name"
-          required>
-          
+
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username " required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="name@example.com" required>
+
+        <label for="fname">First Name</label>
+        <input type="text" id="fname" name="fname" placeholder="Enter Your First Name" required>
+
         <label for="lname">Last Name</label>
-      <input type="text" id="lname" name="lname" placeholder="Enter Your Last Name"
-        required>
+        <input type="text" id="lname" name="lname" placeholder="Enter Your Last Name" required>
 
-            <label for="pass1">Password:</label>
-            <input type="password" id="pass1" name="pass1" placeholder="Choose Your Password" required>
+        <label for="pass1">Password:</label>
+        <input type="password" id="pass1" name="pass1" placeholder="Choose Your Password" required>
 
-            <label for="confirmPassword">Confirm Password:</label>
-            <input type="password" id="pass2" name="pass2"  placeholder="Enter your password again"  required>
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="pass2" name="pass2" placeholder="Enter your password again" required>
 
-            {% csrf_token %}
-            <button type="submit">Sign Up</button>
-        </form>
+        {% csrf_token %}
+        <button type="submit">Sign Up</button>
+      </form>
     </div>
-</div>
- <!-- Login Modal -->
- <div id="loginModal" class="modal">
-  <div class="modal-content">
+  </div>
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
       <span class="close" id="closeLogin">&times;</span>
       <h2>Login</h2>
       <form action="/login" method="POST" id="loginForm">{% csrf_token %}
-          
-          <label for="username">Username</label>
-          <input type="text"  id="loginusername" name="loginusername"
-            placeholder="Enter your username " required>
 
-          <label for="loginPassword">Password:</label>
-          <input type="password" id="loginpassword" name="loginpassword" placeholder="Enter your password" required>
+        <label for="username">Username</label>
+        <input type="text" id="loginusername" name="loginusername" placeholder="Enter your username " required>
 
-          <button type="submit">Login</button>
+        <label for="loginPassword">Password:</label>
+        <input type="password" id="loginpassword" name="loginpassword" placeholder="Enter your password" required>
+
+        <button type="submit">Login</button>
       </form>
+    </div>
   </div>
-</div>
 
-
-    <aside>
-        <div class="button-container">
-          {% if user.is_authenticated %}
-          <button><a href="/">Profile</a></button>
-          <button class="disabled "><a href="/resources/filterpage" role="button">Saved</a></button>
+  <aside class="sidebar">
+    <div class="sidebar-nav">
+        <ul>
+            {% if user.is_authenticated %}
+            <li><a href="/users/profile"><img src="{% static 'img/icons/profile_icon.png' %}" alt="Profile Icon"> Profile</a></li>
+            <li><a href="/users/documents"><img src="{% static 'img/icons/saved_icon.png' %}" alt="Saved Icon"> Saved</a></li>
             {% endif %}
-          <button>Courses</button>
-          <button>Discussions</button>
-          <button>Resources</button>
-        </div>
-    </aside>
+            
+            <li><a href="/discussion"><img src="{% static 'img/icons/discussion_icon.png' %}" alt="Discussion Icon"> Discussion</a></li>
+            <li><a href="/resources/filterpage"><img src="{% static 'img/icons/filter_icon.png' %}" alt="Discussion Icon"> Filter</a></li>
+            <li class="dropdown">
+              <a href="#courses" class="dropbtn"><img src="{% static 'img/icons/courses_icon.png' %}" alt="Courses Icon"> Courses</a>
+              <ul class="dropdown-content">
+                  <li><a href="/resources/BCA"><img src="{% static 'img/bca.png' %}" alt="BCA Icon"> BCA</a></li>
+                  <li><a href="/resources/BBA"><img src="{% static 'img/bba.png' %}" alt="BBA Icon"> BBA</a></li>
+                  <li><a href="/resources/BHM"><img src="{% static 'img/hm.png' %}" alt="HM Icon"> HM</a></li>
+              </ul>
+          </li>
+        </ul>
+      </div>
+</aside>
 
-    <main>
-          {% block body %} {% endblock body %}
-    </main>
-    
-    <footer>
-        &copy; mycollegehub. All Rights Reserved.
-        <div class="logos">
-            <a href="#" class="fa fa-facebook"></a>
-            <a href="#" class="fa fa-twitter"></a>
-            <a href="#" class="fa fa-linkedin"></a>
-            <!-- <a href="#" class="fa fa-youtube"></a> -->
-            <a href="#" class="fa fa-instagram"></a>
-        </div>
-    </footer>
+  <main>
+    {% block body %} {% endblock body %}
+  </main>
 
-    {% block js %} {% endblock js %}
-    <script src="{% static 'js/loginsignup.js' %}"></script>
-    <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <footer>
+    &copy; mycollegehub. All Rights Reserved.
+    <div class="logos">
+      <a href="#" class="fa fa-facebook"></a>
+      <a href="#" class="fa fa-twitter"></a>
+      <a href="#" class="fa fa-linkedin"></a>
+      <!-- <a href="#" class="fa fa-youtube"></a> -->
+      <a href="#" class="fa fa-instagram"></a>
+    </div>
+  </footer>
+
+  {% block js %} {% endblock js %}
+  <script src="{% static 'js/script.js' %}"></script>
+  <script src="{% static 'js/loginsignup.js' %}"></script>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="{%static 'css/alerts.css' %}"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-  integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-  crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-  integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-  crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>

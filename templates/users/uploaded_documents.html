@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<div class="uploaded-documents">
+    <h2>Your Uploaded Documents</h2>
+    <div class="upload-link">
+        <a href="{% url 'upload_document' %}">
+            <img src="{% static 'img/upload_icon.png' %}" alt="Upload Icon">
+            Upload Document
+        </a>
+    </div>
+    <ul>
+        {% for document in documents %}
+            <li>
+                <img src="{% static 'img/document_icon.png' %}" alt="Document Icon" class="document-icon">
+                <a href="{{ document.document.url }}" >{{ document.document.name }}</a>
+                <span>(uploaded at {{ document.uploaded_at }})</span>
+                <a href="{{ document.document.url }}" download class="download-icon">
+                    <img src="{% static 'img/download_icon.png' %}" alt="Download Icon">
+                </a>
+               <a href="/users/delete/{{document.id}}" class="delete-icon" onclick="return confirm('Are you sure you want to delete this document?');">
+                    <img src="{% static 'img/delete_icon.png' %}" alt="Delete Icon">
+                </a> 
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

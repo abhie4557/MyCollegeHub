@@ -8,11 +8,7 @@
 <div class="filterform">
 
     <form action="http://127.0.0.1:8000/resources/filter" method="get">
-    {% comment %} 
-    {% if type == "notes" %}<input type="hidden" id="type" name="type" value ="notes">{% endif %}
-    {% if type == "paper" %}<input type="hidden" id="type" name="type" value ="paper">{% endif %}
-    {% if type == "assignment" %}<input type="hidden" id="type" name="type" value ="assignment">{% endif %} 
-    {% endcomment %}
+   
     
         <select id="courseSelect" name="courseSelect">
             <option value="" >Choose a Course</option>
@@ -23,19 +19,18 @@
         </select>
         <select id="semesterSelect" name="semesterSelect">
             <option value="">Choose a Semester</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
+            <option value="1" {% if semester == "1" %} selected {% endif %}>1</option>
+            <option value="2" {% if semester == "2" %} selected {% endif %}>2</option>
+            <option value="3" {% if semester == "3" %} selected {% endif %}>3</option>
+            <option value="4" {% if semester == "4" %} selected {% endif %}>4</option>
+            <option value="5" {% if semester == "5" %} selected {% endif %}>5</option>
+            <option value="6" {% if semester == "6" %} selected {% endif %}>6</option>
             <!-- Add more options as needed -->
         </select>
         <select id="resourceSelect" name="resourceSelect">
-            <option value="paper">Resource type</option>
-            <option value="notes" selected>Notes</option>
-            <option value="paper">Previous Year Papers</option>
-            <option value="assignment">Assignments</option>
+            <option value="notes"{% if type == "notes" %} selected {% endif %}>Notes</option>
+            <option value="paper"{% if type == "paper" %} selected {% endif %}>Previous Year Papers</option>
+            <option value="assignment" {% if type == "assignment" %} selected {% endif %}>Assignments</option>
             <!-- Add more options as needed -->
         </select>
     

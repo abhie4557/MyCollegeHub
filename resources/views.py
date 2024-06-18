@@ -132,7 +132,6 @@ def filtered_data(request):
         filter_query['semester'] = semester
     if year:
         filter_query['year'] = int(year)
-    
     if not course and not year:
         print("no filter query")
     
@@ -142,7 +141,7 @@ def filtered_data(request):
         filtered_documents = list(resources_pdfnote.find(filter_query))
     elif type == "assignment":
         filtered_documents = list(resources_assignment.find(filter_query))
-        
+    
     # Convert MongoDB documents to Python dictionaries
     python_documents = [doc for doc in filtered_documents]
     
@@ -151,6 +150,7 @@ def filtered_data(request):
     
     docs={'data':python_documents}
     
+    filter_query['type'] = type
     # Merge the two dictionaries
     context = {**filter_query, **docs}
     print("filter query passed to filter page")

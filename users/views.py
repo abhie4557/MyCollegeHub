@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile, UserDocument
 from .forms import UserProfileForm, UserDocumentForm
@@ -34,3 +34,11 @@ def upload_document(request):
 def uploaded_documents(request):
     documents = UserDocument.objects.filter(user=request.user)
     return render(request, 'users/uploaded_documents.html', {'documents': documents})
+
+@login_required
+def delete_document(request, document_id):
+    document = get_object_or_404(UserDocument, id=document_id, user=request.user)
+    if request.method == 'POST':
+        document.delete()
+        return redirect('uploaded_documents')
+    return render(request, 'users/confirm_delete.html', {'document': document})

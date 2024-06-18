@@ -1,9 +1,16 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}CollegeHub|Resources{% endblock title %}
+{% block title %}MyCollegeHub|Resources{% endblock title %}
 {% block resourceactive %} active {% endblock resourceactive %}
 {% block body %}
+
+
+<div class="course-heading-container">
+    <img src="{% static 'img/icons/courses_icon.png' %}" alt="Course Icon" class="icon">
+    <h1 class="heading">{{course}}</h1>
+</div>
+
 <div class="images">
     <a href="/resources/{{course}}/Notes" ><img src="{% static 'img/notes.jpg' %}" alt="Notes"></a>
     <a href="/resources/{{course}}/Previous Year Papers"><img src="{% static 'img/pyp.jpg' %}" alt="Previous Year Papers"></a>
